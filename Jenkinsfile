@@ -2,36 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/rohitkalal1122/gameing.git'
-            }
-        }
 
         stage('Clone') {
             steps {
-                bat 'echo Cloning repository...'
+                git 'https://github.com/rohitkalal1122/gameing.git'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'echo Building project...'
+                echo 'Build successful'
             }
         }
 
-        stage('Test') {
-            steps {
-                bat 'echo Running tests...'
-            }
-        }
-
-        stage('Deploy') {
+        stage('Deploy to XAMPP') {
             steps {
                 bat '''
-                echo Deploying project to XAMPP...
-                if not exist C:\\xampp\\htdocs mkdir C:\\xampp\\htdocs
-                xcopy * C:\\xampp\\htdocs\\ /E /H /C /I /Y
+                xcopy /E /I /Y * C:\\xampp\\htdocs\\gameing
                 '''
             }
         }
